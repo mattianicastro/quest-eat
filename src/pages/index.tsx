@@ -53,7 +53,7 @@ const Home: NextPage = () => {
             <button
         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
         onClick={() => {
-            ok.mutate({name: "test", description: "test", address: "test", phone: "test", email: "test@test.com", website: "https://test.com", city: "test", state: "test", zip: 123, lat:0, lng: 0});
+            ok.mutate({name: "test", address: "test", phone: "test", email: "test@test.com", website: "https://test.com", city: "test", state: "test", zip: 123, lat:0, lng: 0});
         }}
       >RIDI</button>
             <AuthShowcase />
