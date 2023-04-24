@@ -6,12 +6,13 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "mysql"
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
 // Necessary for Next auth
@@ -21,16 +22,17 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
+    refresh_token     String?  @db.Text
+    access_token      String?  @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? // @db.Text
+    id_token          String?  @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+    @@index([userId])
 }
 
 model Session {
@@ -39,6 +41,8 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
 }
 
 model User {
@@ -80,6 +84,8 @@ model Restaurant {
     createdBy User       @relation(fields: [userId], references: [id])
     Review    Review[]
     TourStop  TourStop[]
+
+    @@index([userId])
 }
 
 model Review {
@@ -93,6 +99,9 @@ model Review {
     restaurantId String
     createdBy    User       @relation(fields: [userId], references: [id])
     restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+    @@index([userId])
+    @@index([restaurantId])
 }
 
 model TourStop {
@@ -105,6 +114,7 @@ model TourStop {
     restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
     tour         Tour @relation(fields: [tourId], references: [id])
     @@unique([restaurantId, tourId])
+    @@index([tourId])
 }
 
 model Tour {
@@ -115,4 +125,6 @@ model Tour {
     userId    String
     createdBy User       @relation(fields: [userId], references: [id])
     TourStop  TourStop[]
+
+    @@index([userId])
 }
