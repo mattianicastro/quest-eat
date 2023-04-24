@@ -1,10 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import { Button } from "./ui/button";
-import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { getInitials } from "~/lib/utils";
 import { UserAccountNav } from "./user-account-nav";
 import { GitFork } from "lucide-react";
 import {
