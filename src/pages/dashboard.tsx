@@ -1,17 +1,14 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
-import { Restaurants } from "~/components/Restaurants";
 import { Button } from "~/components/ui/button";
 import {
     Card,
-    CardContent,
     CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Login } from "~/components/Login";
 import { Map } from "lucide-react";
 
