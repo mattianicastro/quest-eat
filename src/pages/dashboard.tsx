@@ -1,46 +1,79 @@
-import { Progress } from "@radix-ui/react-progress";
-import { NextPage } from "next";
+import type { NextPage } from "next";
+import Link from "next/link";
 import { useState } from "react";
+import { Restaurants } from "~/components/Restaurants";
 import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
-import { api } from "~/utils/api";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card";
+import { signIn, useSession } from "next-auth/react";
+import { Login } from "~/components/Login";
+import { Map } from "lucide-react";
 
 const Dashboard: NextPage = () => {
-    const getAllQuery = api.restaurants.getOwn.useQuery({});
-    const deleteMutation = api.restaurants.delete.useMutation();
-    const value = useState(0)
+    const { data: session } = useSession();
 
-    setInterval(() => {
-        value[1](value[0] + 1)
-    }, 1000)
+    if (!session) {
+        // Handle unauthenticated state, redirect to login page
+        return <Login></Login>;
+    }
 
     return (
         <>
-        <main className="bg-primary-foreground min-h-screen flex flex-col items-center gap-y-5">
-            <h1 className="font-sans text-primary p-5 scroll-m-20 text-4xl font-bold tracking-tight place-self-start lg:text-5xl">Dashboard</h1>
-            <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">Ristoranti</h2>
-            <div className="flex flex-row flex-wrap justify-center">
-            <Progress value={73} className="w-[60%]"/>
-                {getAllQuery.data ? getAllQuery.data.map((item) => {
-                    return <Card key={item.id} className="w-80 m-5">
+            <main className="flex min-h-screen flex-col items-center gap-y-5 bg-primary-foreground">
+                <h1 className="scroll-m-20 p-5 font-sans text-4xl font-bold tracking-tight text-primary md:place-self-start lg:text-5xl">
+                    Dashboard
+                </h1>
+                <div className="flex flex-row flex-wrap items-center justify-center gap-5">
+                    <Card>
                         <CardHeader>
-                            <CardTitle>{item.name}</CardTitle>
+                            <CardTitle>Tour</CardTitle>
+                            <CardDescription>
+                                Gestisci i tuoi tour o creane uno nuovo
+                            </CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            <p>{item.email}</p>
-                            <p>{item.phone}</p>
-                        </CardContent>
                         <CardFooter>
-                            <Button variant={"destructive"} onClick={()=>{
-                                deleteMutation.mutateAsync({id: item.id}).then(() => void getAllQuery.refetch())
-                            }}>Elimina</Button>
+                            <Link href={"/dashboard/tours"}>
+                                <Button>
+                                    <Map className="mr-2 h-4 w-4"></Map>
+                                </Button>{" "}
+                            </Link>
                         </CardFooter>
                     </Card>
-                }) : null
-                }
-            </div>
-        </main>
-        </>            
-    )
-}
-export default Dashboard
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Tour</CardTitle>
+                            <CardDescription>
+                                Gestisci i tuoi tour o creane uno nuovo
+                            </CardDescription>
+                        </CardHeader>
+                        <CardFooter>
+                            <Button>
+                                <Link href={"/dashboard/tours"}>Vai</Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Tour</CardTitle>
+                            <CardDescription>
+                                Gestisci i tuoi tour o creane uno nuovo
+                            </CardDescription>
+                        </CardHeader>
+                        <CardFooter>
+                            <Button>
+                                <Link href={"/dashboard/tours"}>Vai</Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                </div>
+            </main>
+        </>
+    );
+};
+export default Dashboard;

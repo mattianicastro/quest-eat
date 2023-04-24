@@ -8,8 +8,8 @@ import { restaurantsRouter } from "./routers/restaurants";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  example: exampleRouter,
-  restaurants: restaurantsRouter,
+    example: exampleRouter,
+    restaurants: restaurantsRouter,
 });
 
 // export type definition of API
