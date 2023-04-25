@@ -15,11 +15,13 @@ import {
 } from "~/components/ui/dialog";
 import { DialogHeader } from "~/components/ui/dialog";
 import { Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export const Tour: NextPage = () => {
     const { id } = useRouter().query;
     const tourQuery = api.tours.getTour.useQuery({ id: id as string });
     const router = useRouter();
+    const { data: session } = useSession();
     const deleteMutation = api.tours.deleteTour.useMutation();
     if (tourQuery.isLoading) return <Loading />;
     if (!tourQuery.data) return <div>Tour non trovato</div>;
@@ -41,48 +43,52 @@ export const Tour: NextPage = () => {
                             </Link>
                         </p>
                     </div>
+                    {id === session?.user.id && (
                     <div className="flex flex-col gap-y-2">
-                        <Link
-                            href={`/dashboard/tour/edit/${tourQuery.data.id}`}
-                        >
-                            <Button>Modifica</Button>
-                        </Link>
-                        <Dialog>
-                            <DialogTrigger>
-                                <Button variant={"destructive"}>Elimina</Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Sei sicuro?</DialogTitle>
-                                    <DialogDescription>
-                                        Questa azione non può essere annullata!
-                                    </DialogDescription>
-                                </DialogHeader>
-                                <DialogFooter>
-                                    <Button
-                                        disabled={deleteMutation.isLoading}
-                                        onClick={() => {
-                                            void deleteMutation
-                                                .mutateAsync({
-                                                    id: id as string,
-                                                })
-                                                .then(() => {
-                                                    void router.push(
-                                                        "/dashboard/tours"
-                                                    );
-                                                });
-                                        }}
-                                    >
-                                        {deleteMutation.isLoading ? (
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        ) : (
-                                            "Elimina"
-                                        )}
-                                    </Button>
-                                </DialogFooter>
-                            </DialogContent>
-                        </Dialog>
-                    </div>
+                    <Link
+                        href={`/dashboard/tour/edit/${tourQuery.data.id}`}
+                    >
+                        <Button>Modifica</Button>
+                    </Link>
+                    <Dialog>
+                        <DialogTrigger>
+                            <Button variant={"destructive"}>Elimina</Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Sei sicuro?</DialogTitle>
+                                <DialogDescription>
+                                    Questa azione non può essere annullata!
+                                </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter>
+                                <Button
+                                    disabled={deleteMutation.isLoading}
+                                    onClick={() => {
+                                        void deleteMutation
+                                            .mutateAsync({
+                                                id: id as string,
+                                            })
+                                            .then(() => {
+                                                void router.push(
+                                                    "/dashboard/tours"
+                                                );
+                                            });
+                                    }}
+                                >
+                                    {deleteMutation.isLoading ? (
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    ) : (
+                                        "Elimina"
+                                    )}
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+                    )
+                    }
+
                 </div>
 
                 {tourQuery.data.description}
