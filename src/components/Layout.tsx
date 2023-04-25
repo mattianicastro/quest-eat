@@ -73,17 +73,17 @@ const Layout: React.FC<Props> = ({ children }) => {
 
                     <div className="hidden md:block">
                         <Button className="" variant={"ghost"}>
-                            <Link className="" href="/">
+                            <Link className="" href="/tours">
                                 Tours
                             </Link>
                         </Button>
                         <Button className="" variant={"ghost"}>
-                            <Link className="" href="/">
+                            <Link className="" href="/restaurants">
                                 Ristoranti
                             </Link>
                         </Button>
                         <Button className="" variant={"ghost"}>
-                            <Link className="" href="/">
+                            <Link className="" href="/near-me">
                                 Vicino a me
                             </Link>
                         </Button>
