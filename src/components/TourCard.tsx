@@ -53,11 +53,10 @@ const TourCard: React.FC<TourCardProps> = ({ tour }) => {
                     </>
                 ) : (
                     <p className="font-light">Nessuna tappa</p>
-                )}
-                
+                )} 
             </CardContent>
-            <CardFooter>
-                <Button><Link href={`/tour/${tour.id}`}>Visita</Link></Button>
+            <CardFooter className="">
+                <Button className="w-full"><Link href={`/tour/${tour.id}`}>Visita</Link></Button>
             </CardFooter>
         </Card>
     );
