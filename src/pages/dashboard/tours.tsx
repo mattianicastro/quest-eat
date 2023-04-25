@@ -14,6 +14,11 @@ import { Label } from "~/components/ui/label";
 import { Input } from "~/components/ui/input";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import { CardHeader, CardDescription, CardContent, CardFooter, Card, CardTitle } from "~/components/ui/card";
+import Link from "next/link";
+import TourCard from "~/components/TourCard";
+import { Loader, Loader2 } from "lucide-react";
+import { Loading } from "~/components/Loading";
 
 export const Tours: NextPage = () => {
     const { data: session } = useSession();
@@ -25,9 +30,15 @@ export const Tours: NextPage = () => {
         return <Login></Login>;
     }
 
+    if(toursQuery.isLoading){
+        return (
+            <Loading />
+        )
+    }
+
     return (
         <div className="flex flex-col p-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-5">
                 <h1 className="text-3xl font-bold">Tours</h1>
                 <Dialog>
                     <DialogTrigger asChild>
@@ -40,47 +51,55 @@ export const Tours: NextPage = () => {
                                 <div className="grid w-full max-w-sm items-center gap-1.5 py-2">
                                     <Label htmlFor="email"></Label>
                                     <Input placeholder="Nome" />
-                                    <Button onClick={
-                                        () => {
-                                            void addTourMutation.mutateAsync({
-                                                name: "test",
-                                            }).then((res)=>{
-                                                void addStop.mutateAsync({
-                                                    tourId: res.tourId,
-                                                    restaurantId: 'clgv8qohy0004x0hc7rt0abc2'
-                                                })
-                                                console.log(res);
-                                            })
-                                        }
-                                    }>Invia</Button>
+                                    <Button>Invia</Button>
                                 </div>
                             </DialogDescription>
                         </DialogHeader>
                     </DialogContent>
                 </Dialog>
             </div>
-            <div className="flex flex-col flex-wrap justify-center">
-                {
-                    toursQuery.data ? toursQuery.data.map((tour) => {
-                        return (
-                            <div key={tour.id} className="flex flex-col items-center justify-center gap-5 p-4">
-                                <h1>{tour.name}</h1>
-                                {tour.TourStop.map((stop) => {
-                                    return (
-                                        <div key={stop.id}>
-                                            <p>- {stop.restaurant.name}</p>
-                                        </div>
-                                    )
-                                })
-                                }
-                            </div>
-                        )
-                    }
-                    ) : <p>No data</p>
-                }
+            <div className="flex flex-row gap-6 flex-wrap justify-center">
+                {toursQuery.data ? (
+                    toursQuery.data.map((tour) => {
+                        return ( 
+                            <TourCard key={tour.id} tour={tour} />
+                        );
+                    })
+                ) : (
+                    <p>No data</p>
+                )}
             </div>
         </div>
     );
 };
 
 export default Tours;
+
+// onClick={
+//     () => {
+//         void restaurantMutation.mutateAsync({
+//             name: "test",
+//             address: "test",
+//             city: "test",
+//             zip: "test",
+//             state: "test",
+//             lat: 0,
+//             lng: 0,
+//             phone: "test",
+//             website: "https://www.lorenzo.it",
+//             email: "lorenzo@cacca.com",
+//         }).then((res1)=>{
+//             void addTourMutation.mutateAsync({
+//                 name: "test",
+//             }).then((res)=>{
+//                 void addStop.mutateAsync({
+//                     tourId: res.tourId,
+//                     restaurantId: res1.id
+//                 })
+//                 console.log(res);
+//                 alert('ok')
+//             })
+//     })
+
+//     }
+// }

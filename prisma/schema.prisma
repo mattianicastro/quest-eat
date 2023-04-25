@@ -72,7 +72,7 @@ model Restaurant {
     address   String
     city      String
     state     String
-    zip       Int
+    zip       String
     lat       Float
     lng       Float
     phone     String?

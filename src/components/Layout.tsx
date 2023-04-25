@@ -29,12 +29,12 @@ const Layout: React.FC<Props> = ({ children }) => {
                             Quest Eat
                         </Link>
                     </Button>
-                    <div className="visible md:hidden">
+                    <div className="visible md:hidden px-2">
                         <DropdownMenu>
                             <DropdownMenuTrigger>
                                 <GitFork />
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
+                            <DropdownMenuContent align="end" className="mx-2">
                                 <DropdownMenuItem asChild>
                                     <Link href="/dashboard">Dashboard</Link>
                                 </DropdownMenuItem>

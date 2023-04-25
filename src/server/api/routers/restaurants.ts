@@ -14,7 +14,7 @@ export const restaurantsRouter = createTRPCRouter({
                 address: z.string().max(500),
                 city: z.string().max(100),
                 state: z.string().max(100),
-                zip: z.number(),
+                zip: z.string().max(20),
                 lat: z.number().min(-90).max(90),
                 lng: z.number().min(-180).max(180),
                 phone: z.string().max(100).optional(),
@@ -23,7 +23,7 @@ export const restaurantsRouter = createTRPCRouter({
             })
         )
         .mutation(async ({ input, ctx }) => {
-            await ctx.prisma.restaurant.create({
+            return await ctx.prisma.restaurant.create({
                 data: {
                     name: input.name,
                     address: input.address,
@@ -42,9 +42,6 @@ export const restaurantsRouter = createTRPCRouter({
                     },
                 },
             });
-            return {
-                ok: true,
-            };
         }),
     delete: protectedProcedure
         .input(
