@@ -91,8 +91,8 @@ model Restaurant {
 model Review {
     id           String     @id @default(cuid())
     title        String
-    text         String
-    rating       Int
+    text         String     @db.Text
+    rating       Int       
     createdAt    DateTime   @default(now())
     updatedAt    DateTime   @updatedAt
     userId       String
@@ -120,6 +120,7 @@ model TourStop {
 model Tour {
     id        String     @id @default(cuid())
     name      String
+    description String?  @db.Text
     createdAt DateTime   @default(now())
     updatedAt DateTime   @updatedAt
     userId    String

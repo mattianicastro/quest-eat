@@ -25,22 +25,26 @@ const TourCard: React.FC<TourCardProps> = ({ tour }) => {
             <CardHeader>
                 <CardTitle>{tour.name}</CardTitle>
                 <CardDescription>
-                    Creato da{" "}
+                    Creato da {' '}
                     <Link href={`/users/${tour.createdBy.id}`}>
                         {tour.createdBy.name}
                     </Link>
                 </CardDescription>
             </CardHeader>
             <CardContent>
+                <p>{tour.description}</p>
+                
                 {tour.TourStop.length > 0 ? (
-                    <>
-                        <p className="font-semibold">Tappe:</p>
+                    <>  <p className="font-semibold">Tappe</p>
                         <ul>
                         {tour.TourStop.map((stop) => {
                             return (
                                 <li key={stop.id} className="list-decimal">
                                     <div className="font-light">
                                         <Link href={`/restaurant/${stop.restaurantId}`}><p className="underline">{stop.restaurant.name}</p></Link>
+                                        {stop.description ? (
+                                            <p>{stop.description}</p>
+                                        ) : null}
                                     </div>
                                 </li>
                             );
@@ -50,6 +54,7 @@ const TourCard: React.FC<TourCardProps> = ({ tour }) => {
                 ) : (
                     <p className="font-light">Nessuna tappa</p>
                 )}
+                
             </CardContent>
             <CardFooter>
                 <Button><Link href={`/tour/${tour.id}`}>Visita</Link></Button>
