@@ -52,11 +52,10 @@ export const Tour: NextPage = () => {
     if (tourQuery.isLoading) return <Loading />;
     if (!tourQuery.data) return <div>Tour non trovato</div>;
 
-    function deleteStop(id: string){
-        void deleteStepMutation.mutateAsync({id}).then(() => {
-
-        void tourQuery.refetch()
-        })
+    function deleteStop(id: string) {
+        void deleteStepMutation.mutateAsync({ id }).then(() => {
+            void tourQuery.refetch();
+        });
     }
 
     return (
@@ -124,12 +123,18 @@ export const Tour: NextPage = () => {
                 <div className="flex flex-col flex-wrap justify-center gap-6">
                     {tourQuery.data.TourStop.map((stop, i) => {
                         return (
-                            <StepAccordion key={stop.id} position={i} stop={stop} editMode={true} onDelete={deleteStop} />
+                            <StepAccordion
+                                key={stop.id}
+                                position={i}
+                                stop={stop}
+                                editMode={true}
+                                onDelete={deleteStop}
+                            />
                         );
                     })}
                     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                         <DialogTrigger>
-                            <Button  className="w-full">Aggiungi tappa</Button>
+                            <Button className="w-full">Aggiungi tappa</Button>
                         </DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
@@ -171,7 +176,7 @@ export const Tour: NextPage = () => {
                                                     undefined
                                                 );
                                                 setStepDescription("");
-                                                setDialogOpen(false)
+                                                setDialogOpen(false);
                                                 void tourQuery.refetch();
                                             });
                                     }}

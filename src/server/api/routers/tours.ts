@@ -91,13 +91,14 @@ export const toursRouter = createTRPCRouter({
                 ok: true,
             };
         }),
-    
+
     deleteStop: protectedProcedure
         .input(
             z.object({
                 id: z.string(),
             })
-        ).mutation(async ({ input, ctx }) => {
+        )
+        .mutation(async ({ input, ctx }) => {
             const res = await ctx.prisma.tourStop.deleteMany({
                 where: {
                     id: input.id,

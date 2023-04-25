@@ -53,19 +53,13 @@ const Layout: React.FC<Props> = ({ children }) => {
                                     <Link href="/dashboard">Dashboard</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
-                                    <Link href="/tours">
-                                        Tours
-                                    </Link>
+                                    <Link href="/tours">Tours</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
-                                    <Link href="/restaurants">
-                                        Ristoranti
-                                    </Link>
+                                    <Link href="/restaurants">Ristoranti</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
-                                    <Link href="/near-me">
-                                        Vicino a me
-                                    </Link>
+                                    <Link href="/near-me">Vicino a me</Link>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

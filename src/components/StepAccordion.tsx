@@ -20,14 +20,14 @@ interface StepAccordionProps {
     };
     position: number;
     editMode: boolean;
-    onDelete?: (id:string) => void;
+    onDelete?: (id: string) => void;
 }
 
 const StepAccordion: React.FC<StepAccordionProps> = ({
     stop,
     position,
     editMode,
-    onDelete
+    onDelete,
 }) => {
     return (
         <Accordion key={stop.id} type="single" collapsible>
@@ -75,7 +75,12 @@ const StepAccordion: React.FC<StepAccordionProps> = ({
                         </CardHeader>
                         {editMode && onDelete ? (
                             <CardFooter>
-                                <Button variant={"destructive"} onClick={()=>onDelete(stop.id)}>Elimina</Button>
+                                <Button
+                                    variant={"destructive"}
+                                    onClick={() => onDelete(stop.id)}
+                                >
+                                    Elimina
+                                </Button>
                             </CardFooter>
                         ) : null}
                     </Card>

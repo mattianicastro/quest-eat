@@ -80,7 +80,11 @@ export const restaurantsRouter = createTRPCRouter({
             });
         }),
     getAll: publicProcedure.query(({ ctx }) => {
-        return ctx.prisma.restaurant.findMany();
+        return ctx.prisma.restaurant.findMany({
+            include: {
+                createdBy: true,
+            },
+        });
     }),
 
     getOwn: protectedProcedure
@@ -145,7 +149,7 @@ export const restaurantsRouter = createTRPCRouter({
                     userId_restaurantId: {
                         userId: ctx.session.user.id,
                         restaurantId: input.id,
-                    }
+                    },
                 },
                 create: {
                     rating: input.rating,
@@ -164,9 +168,8 @@ export const restaurantsRouter = createTRPCRouter({
                     rating: input.rating,
                 },
                 select: {
-                    rating: true
-                }
-
+                    rating: true,
+                },
             });
         }),
     getReviews: publicProcedure
@@ -186,6 +189,5 @@ export const restaurantsRouter = createTRPCRouter({
                     rating: true,
                 },
             });
-        }
-        ),
+        }),
 });

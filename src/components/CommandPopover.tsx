@@ -21,7 +21,7 @@ interface CommandPopoverProps {
     onCommand: (command: Restaurant | undefined) => void;
 }
 
-const CommandPopover:React.FC<CommandPopoverProps> = ({onCommand}) => {
+const CommandPopover: React.FC<CommandPopoverProps> = ({ onCommand }) => {
     const [open, setOpen] = React.useState(false);
     const [selectedRestaurant, setSelectedRestaurant] = React.useState<
         Restaurant | undefined
@@ -36,7 +36,7 @@ const CommandPopover:React.FC<CommandPopoverProps> = ({onCommand}) => {
         if (restaurantName) {
             void restaurantsQuery.refetch();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [restaurantName]);
 
     return (
@@ -81,7 +81,7 @@ const CommandPopover:React.FC<CommandPopoverProps> = ({onCommand}) => {
                                                         value
                                                 );
                                             setSelectedRestaurant(r);
-                                            onCommand(r)
+                                            onCommand(r);
                                         }}
                                     >
                                         <span>{restaurant.name}</span>
@@ -94,6 +94,6 @@ const CommandPopover:React.FC<CommandPopoverProps> = ({onCommand}) => {
             </Popover>
         </div>
     );
-}
+};
 
-export  {CommandPopover}
+export { CommandPopover };

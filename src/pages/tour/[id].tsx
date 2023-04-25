@@ -18,7 +18,6 @@ import { useSession } from "next-auth/react";
 
 import StepAccordion from "~/components/StepAccordion";
 
-
 export const Tour: NextPage = () => {
     const { id } = useRouter().query;
     const tourQuery = api.tours.getTour.useQuery({ id: id as string });
@@ -96,7 +95,12 @@ export const Tour: NextPage = () => {
                 <div className="flex flex-col flex-wrap justify-center gap-6">
                     {tourQuery.data.TourStop.map((stop, i) => {
                         return (
-                            <StepAccordion key={stop.id} position={i} stop={stop} editMode={false} />
+                            <StepAccordion
+                                key={stop.id}
+                                position={i}
+                                stop={stop}
+                                editMode={false}
+                            />
                         );
                     })}
                 </div>
