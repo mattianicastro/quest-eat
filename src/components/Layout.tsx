@@ -2,7 +2,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { UserAccountNav } from "./user-account-nav";
-import { GitFork } from "lucide-react";
+import Image from "next/image";
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -29,10 +29,15 @@ const Layout: React.FC<Props> = ({ children }) => {
                             Quest Eat
                         </Link>
                     </Button>
-                    <div className="visible px-2 md:hidden">
+                    <div className="visible md:hidden">
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <GitFork />
+                                <Image
+                                    src={"/Cibo_guerriero.png"}
+                                    alt={"Logo"}
+                                    width={80}
+                                    height={80}
+                                ></Image>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="mx-2">
                                 <DropdownMenuItem asChild>
