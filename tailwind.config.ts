@@ -2,7 +2,11 @@ import { type Config } from "tailwindcss";
 
 export default {
     darkMode: ["class"],
-    content: ["./src/**/*.{js,ts,jsx,tsx}"],
+    content: [
+        "./src/**/*.{js,ts,jsx,tsx}",
+        "node_modules/daisyui/dist/**/*.js",
+        "node_modules/react-daisyui/dist/**/*.js",
+    ],
     theme: {
         container: {
             center: true,
@@ -68,5 +72,15 @@ export default {
             },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [require("tailwindcss-animate"), require("daisyui")],
+    daisyui: {
+        styled: true,
+        themes: true,
+        base: false,
+        utils: true,
+        logs: true,
+        rtl: true,
+        prefix: "",
+        darkTheme: "dark",
+    },
 } satisfies Config;
