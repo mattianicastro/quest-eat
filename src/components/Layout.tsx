@@ -21,14 +21,21 @@ const Layout: React.FC<Props> = ({ children }) => {
         <>
             <div className="flex h-14 items-center justify-between border-b border-b-slate-200 bg-yellow-200 px-2 py-4">
                 <div className="flex gap-3 md:gap-10">
-                    <Button
-                        className="hidden md:flex md:text-2xl"
-                        variant={"ghost"}
-                    >
-                        <Link className="" href="/">
+                    <Link className="" href="/">
+                        <Button
+                            className="hidden items-center justify-center md:flex md:text-2xl"
+                            variant={"link"}
+                        >
+                            <Image
+                                className="mr-2"
+                                src={"/content-crop-logo.png"}
+                                alt={"Logo"}
+                                width={50}
+                                height={50}
+                            ></Image>
                             Quest Eat
-                        </Link>
-                    </Button>
+                        </Button>
+                    </Link>
                     <div className="visible md:hidden">
                         <DropdownMenu>
                             <DropdownMenuTrigger>
