@@ -37,8 +37,9 @@ const Dashboard: NextPage = () => {
                         <CardFooter>
                             <Link href={"/dashboard/tours"}>
                                 <Button>
-                                    <Map className="mr-2 h-4 w-4"></Map>
-                                </Button>{" "}
+                                    <Map className="mr-2 h-4 w-4"></Map>I tuoi
+                                    tour
+                                </Button>
                             </Link>
                         </CardFooter>
                     </Card>

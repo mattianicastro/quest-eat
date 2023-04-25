@@ -3,7 +3,7 @@ import { Button } from "~/components/ui/button";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -14,56 +14,103 @@ import { Label } from "~/components/ui/label";
 import { Input } from "~/components/ui/input";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
-import { CardHeader, CardDescription, CardContent, CardFooter, Card, CardTitle } from "~/components/ui/card";
-import Link from "next/link";
 import TourCard from "~/components/TourCard";
-import { Loader, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Loading } from "~/components/Loading";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 export const Tours: NextPage = () => {
     const { data: session } = useSession();
     const addTourMutation = api.tours.createTour.useMutation();
-    const addStop = api.tours.createStop.useMutation();
     const toursQuery = api.tours.getTours.useQuery();
+    const [tourName, setTourName] = useState("");
+    const [tourDescription, setTourDescription] = useState("");
+    const router = useRouter();
 
     if (!session) {
         return <Login></Login>;
     }
 
-    if(toursQuery.isLoading){
-        return (
-            <Loading />
-        )
+    if (toursQuery.isLoading) {
+        return <Loading />;
     }
 
     return (
         <div className="flex flex-col p-4">
-            <div className="flex items-center justify-between mb-5">
+            <div className="mb-5 flex items-center justify-between">
                 <h1 className="text-3xl font-bold">Tours</h1>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button>Crea</Button>
+                        <Button variant="outline">Crea</Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle>Crea un tour</DialogTitle>
-                            <DialogDescription asChild>
-                                <div className="grid w-full max-w-sm items-center gap-1.5 py-2">
-                                    <Label htmlFor="email"></Label>
-                                    <Input placeholder="Nome" />
-                                    <Button>Invia</Button>
-                                </div>
-                            </DialogDescription>
+                            <DialogTitle>Crea nuovo tour</DialogTitle>
                         </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="name" className="text-right">
+                                    Nome
+                                </Label>
+                                <Input
+                                    id="name"
+                                    placeholder="Il mio tour"
+                                    value={tourName}
+                                    onChange={(e) =>
+                                        setTourName(e.target.value)
+                                    }
+                                    className="col-span-3"
+                                />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label
+                                    htmlFor="description"
+                                    className="text-right"
+                                >
+                                    Descrizione
+                                </Label>
+                                <Input
+                                    id="description"
+                                    placeholder="Never gonna let you down"
+                                    className="col-span-3"
+                                    value={tourDescription}
+                                    onChange={(e) =>
+                                        setTourDescription(e.target.value)
+                                    }
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button
+                                disabled={addTourMutation.isLoading}
+                                onClick={() => {
+                                    void addTourMutation
+                                        .mutateAsync({
+                                            name: tourName,
+                                            description: tourDescription,
+                                        })
+                                        .then((res) => {
+                                            void router.push(
+                                                `/tour/${res.tourId}`
+                                            );
+                                        });
+                                }}
+                            >
+                                {addTourMutation.isLoading ? (
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                ) : (
+                                    "Aggiungi"
+                                )}
+                            </Button>
+                        </DialogFooter>
                     </DialogContent>
                 </Dialog>
             </div>
-            <div className="flex flex-row gap-6 flex-wrap justify-center">
+            <div className="flex flex-row flex-wrap justify-center gap-6">
                 {toursQuery.data ? (
                     toursQuery.data.map((tour) => {
-                        return ( 
-                            <TourCard key={tour.id} tour={tour} />
-                        );
+                        return <TourCard key={tour.id} tour={tour} />;
                     })
                 ) : (
                     <p>No data</p>
@@ -74,32 +121,3 @@ export const Tours: NextPage = () => {
 };
 
 export default Tours;
-
-// onClick={
-//     () => {
-//         void restaurantMutation.mutateAsync({
-//             name: "test",
-//             address: "test",
-//             city: "test",
-//             zip: "test",
-//             state: "test",
-//             lat: 0,
-//             lng: 0,
-//             phone: "test",
-//             website: "https://www.lorenzo.it",
-//             email: "lorenzo@cacca.com",
-//         }).then((res1)=>{
-//             void addTourMutation.mutateAsync({
-//                 name: "test",
-//             }).then((res)=>{
-//                 void addStop.mutateAsync({
-//                     tourId: res.tourId,
-//                     restaurantId: res1.id
-//                 })
-//                 console.log(res);
-//                 alert('ok')
-//             })
-//     })
-
-//     }
-// }

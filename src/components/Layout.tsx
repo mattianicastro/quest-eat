@@ -29,7 +29,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                             Quest Eat
                         </Link>
                     </Button>
-                    <div className="visible md:hidden px-2">
+                    <div className="visible px-2 md:hidden">
                         <DropdownMenu>
                             <DropdownMenuTrigger>
                                 <GitFork />
