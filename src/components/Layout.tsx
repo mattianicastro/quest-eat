@@ -1,4 +1,4 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { UserAccountNav } from "./user-account-nav";
@@ -7,7 +7,6 @@ import {
     DropdownMenu,
     DropdownMenuTrigger,
     DropdownMenuContent,
-    DropdownMenuSeparator,
     DropdownMenuItem,
 } from "./ui/dropdown-menu";
 
@@ -48,29 +47,25 @@ const Layout: React.FC<Props> = ({ children }) => {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="mx-2">
                                 <DropdownMenuItem asChild>
+                                    <Link href="/">Home</Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild>
                                     <Link href="/dashboard">Dashboard</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
-                                    <Link href="/dashboard/billing">
-                                        Billing
+                                    <Link href="/tours">
+                                        Tours
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
-                                    <Link href="/dashboard/settings">
-                                        Settings
+                                    <Link href="/restaurants">
+                                        Ristoranti
                                     </Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem
-                                    className="cursor-pointer"
-                                    onSelect={(event: Event) => {
-                                        event.preventDefault();
-                                        void signOut({
-                                            callbackUrl: `${window.location.origin}/`,
-                                        });
-                                    }}
-                                >
-                                    Sign out
+                                <DropdownMenuItem asChild>
+                                    <Link href="/near-me">
+                                        Vicino a me
+                                    </Link>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -79,17 +74,17 @@ const Layout: React.FC<Props> = ({ children }) => {
                     <div className="hidden md:block">
                         <Button className="" variant={"ghost"}>
                             <Link className="" href="/">
-                                Quest Eat
+                                Tours
                             </Link>
                         </Button>
                         <Button className="" variant={"ghost"}>
                             <Link className="" href="/">
-                                Quest Eat
+                                Ristoranti
                             </Link>
                         </Button>
                         <Button className="" variant={"ghost"}>
                             <Link className="" href="/">
-                                Quest Eat
+                                Vicino a me
                             </Link>
                         </Button>
                     </div>
