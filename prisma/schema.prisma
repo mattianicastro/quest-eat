@@ -3,6 +3,7 @@
 
 generator client {
     provider = "prisma-client-js"
+    previewFeatures = ["extendedWhereUnique"]
 }
 
 datasource db {
@@ -90,8 +91,6 @@ model Restaurant {
 
 model Review {
     id           String     @id @default(cuid())
-    title        String
-    text         String     @db.Text
     rating       Int       
     createdAt    DateTime   @default(now())
     updatedAt    DateTime   @updatedAt
@@ -100,6 +99,8 @@ model Review {
     createdBy    User       @relation(fields: [userId], references: [id])
     restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
+
+    @@unique([userId, restaurantId])
     @@index([userId])
     @@index([restaurantId])
 }

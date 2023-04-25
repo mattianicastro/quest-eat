@@ -132,4 +132,60 @@ export const restaurantsRouter = createTRPCRouter({
                 },
             });
         }),
+    setReview: protectedProcedure
+        .input(
+            z.object({
+                id: z.string(),
+                rating: z.number().min(1).max(5),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            return await ctx.prisma.review.upsert({
+                where: {
+                    userId_restaurantId: {
+                        userId: ctx.session.user.id,
+                        restaurantId: input.id,
+                    }
+                },
+                create: {
+                    rating: input.rating,
+                    restaurant: {
+                        connect: {
+                            id: input.id,
+                        },
+                    },
+                    createdBy: {
+                        connect: {
+                            id: ctx.session.user.id,
+                        },
+                    },
+                },
+                update: {
+                    rating: input.rating,
+                },
+                select: {
+                    rating: true
+                }
+
+            });
+        }),
+    getReviews: publicProcedure
+        .input(
+            z.object({
+                id: z.string(),
+            })
+        )
+        .query(({ ctx, input }) => {
+            return ctx.prisma.review.aggregate({
+                where: {
+                    restaurant: {
+                        id: input.id,
+                    },
+                },
+                _avg: {
+                    rating: true,
+                },
+            });
+        }
+        ),
 });
