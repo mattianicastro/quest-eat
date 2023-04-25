@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { Button } from "~/components/ui/button";
 import { Loading } from "~/components/Loading";
 import { api } from "~/utils/api";
-import { Card, CardHeader } from "~/components/ui/card";
 import {
     Dialog,
     DialogTrigger,
@@ -16,15 +15,9 @@ import {
 import { DialogHeader } from "~/components/ui/dialog";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "~/components/ui/accordion";
-import dynamic from "next/dynamic";
 
-const Map = dynamic(() => import("~/components/Map"), { ssr: false });
+import StepAccordion from "~/components/StepAccordion";
+
 
 export const Tour: NextPage = () => {
     const { id } = useRouter().query;
@@ -52,8 +45,11 @@ export const Tour: NextPage = () => {
                             </Link>
                         </p>
                     </div>
-                    {id === session?.user.id && (
+                    {tourQuery.data.createdBy.id === session?.user.id && (
                         <div className="flex flex-col gap-y-2">
+                            <Link href={`/tour/edit/${tourQuery.data.id}`}>
+                                <Button>Modifica</Button>
+                            </Link>
                             <Dialog>
                                 <DialogTrigger>
                                     <Button variant={"destructive"}>
@@ -100,91 +96,7 @@ export const Tour: NextPage = () => {
                 <div className="flex flex-col flex-wrap justify-center gap-6">
                     {tourQuery.data.TourStop.map((stop, i) => {
                         return (
-                            <>
-                                <Accordion type="single" collapsible>
-                                    <AccordionItem value="item-1">
-                                        <AccordionTrigger>
-                                            <h1 className="text-xl font-bold">
-                                                {i + 1}) {stop.restaurant.name}
-                                            </h1>{" "}
-                                        </AccordionTrigger>
-                                        <AccordionContent>
-                                            <Card key={stop.id}>
-                                                <CardHeader>
-                                                    <p>
-                                                        <p className="font-bold">
-                                                            Indirizzo:
-                                                        </p>
-                                                        {
-                                                            stop.restaurant
-                                                                .address
-                                                        }
-                                                        , {stop.restaurant.city}{" "}
-                                                        ({stop.restaurant.zip})
-                                                        <div className="h-[180px] w-full py-3 md:w-[360px]">
-                                                            <Map
-                                                                position={[
-                                                                    stop
-                                                                        .restaurant
-                                                                        .lat,
-                                                                    stop
-                                                                        .restaurant
-                                                                        .lng,
-                                                                ]}
-                                                                popupText={
-                                                                    stop
-                                                                        .restaurant
-                                                                        .name
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </p>
-                                                    <p>
-                                                        <p className="font-bold">
-                                                            Contatti:
-                                                        </p>
-                                                        <p>
-                                                            Telefono:{" "}
-                                                            {
-                                                                stop.restaurant
-                                                                    .phone
-                                                            }
-                                                        </p>
-                                                        {stop.restaurant
-                                                            .email && (
-                                                            <p>
-                                                                Email:
-                                                                stop.restaurant.email{" "}
-                                                            </p>
-                                                        )}
-
-                                                        {stop.restaurant
-                                                            .website && (
-                                                            <p>
-                                                                Website:{" "}
-                                                                <Link
-                                                                    href={
-                                                                        stop
-                                                                            .restaurant
-                                                                            .website
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        stop
-                                                                            .restaurant
-                                                                            .website
-                                                                    }
-                                                                </Link>
-                                                            </p>
-                                                        )}
-                                                    </p>
-                                                    <p></p>
-                                                </CardHeader>
-                                            </Card>
-                                        </AccordionContent>
-                                    </AccordionItem>
-                                </Accordion>
-                            </>
+                            <StepAccordion key={stop.id} position={i} stop={stop} editMode={false} />
                         );
                     })}
                 </div>

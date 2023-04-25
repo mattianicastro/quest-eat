@@ -28,6 +28,7 @@
         "@trpc/server": "^10.18.0",
         "class-variance-authority": "^0.5.2",
         "clsx": "^1.2.1",
+        "cmdk": "^0.2.0",
         "daisyui": "^2.51.5",
         "leaflet": "^1.9.3",
         "lucide-react": "^0.162.0",

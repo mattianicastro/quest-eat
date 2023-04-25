@@ -79,7 +79,7 @@ export default {
         base: false,
         utils: true,
         logs: true,
-        rtl: true,
+        rtl: false,
         prefix: "",
         darkTheme: "dark",
     },

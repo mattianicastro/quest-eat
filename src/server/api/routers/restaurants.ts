@@ -62,12 +62,23 @@ export const restaurantsRouter = createTRPCRouter({
                 ok: res.count > 0,
             };
         }),
-    getRelevant: publicProcedure.query(({ ctx }) => {
-        return ctx.prisma.restaurant.findMany({
-            take: 5,
-            // order by rating
-        });
-    }),
+    getRelevant: publicProcedure
+        .input(
+            z.object({
+                name: z.string().optional(),
+            })
+        )
+        .query(({ ctx, input }) => {
+            return ctx.prisma.restaurant.findMany({
+                take: 10,
+                where: {
+                    name: {
+                        contains: input.name,
+                    },
+                },
+                // order by rating
+            });
+        }),
     getAll: publicProcedure.query(({ ctx }) => {
         return ctx.prisma.restaurant.findMany();
     }),

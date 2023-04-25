@@ -91,6 +91,34 @@ export const toursRouter = createTRPCRouter({
                 ok: true,
             };
         }),
+    
+    deleteStop: protectedProcedure
+        .input(
+            z.object({
+                id: z.string(),
+            })
+        ).mutation(async ({ input, ctx }) => {
+            const res = await ctx.prisma.tourStop.deleteMany({
+                where: {
+                    id: input.id,
+                    tour: {
+                        createdBy: {
+                            id: ctx.session.user.id,
+                        },
+                    },
+                },
+            });
+            if (res.count === 0) {
+                return {
+                    ok: false,
+                    error: "Stop not found",
+                };
+            }
+            return {
+                ok: true,
+            };
+        }),
+
     createStop: protectedProcedure
         .input(
             z.object({
