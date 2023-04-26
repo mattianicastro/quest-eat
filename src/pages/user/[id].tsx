@@ -9,6 +9,8 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "~/components/ui/accordion";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { getInitials } from "~/lib/utils";
 
 const RestaurantDetails: NextPage = () => {
     const router = useRouter();
@@ -21,9 +23,16 @@ const RestaurantDetails: NextPage = () => {
     return (
         <>
             <main className="flex min-h-screen flex-col items-center gap-y-5 bg-primary-foreground p-5 md:items-start">
+                <div className="flex flex-row justify-center items-center gap-x-5">
+                <Avatar>
+                    <AvatarImage src={userQuery.data.image||""} />
+                    <AvatarFallback>{getInitials(userQuery.data.name||"No Name")}</AvatarFallback>
+                </Avatar>
                 <h1 className="scroll-m-20 font-sans text-4xl font-bold tracking-tight text-primary lg:text-5xl">
                     {userQuery.data.name}
                 </h1>
+                </div>
+
 
                 <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
                     Informazioni utente
