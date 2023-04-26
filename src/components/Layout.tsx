@@ -39,7 +39,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                         <DropdownMenu>
                             <DropdownMenuTrigger>
                                 <Image
-                                    src={"/Cibo_guerriero.png"}
+                                    src={"/Cibo_guerriero_w.png"}
                                     alt={"Logo"}
                                     width={80}
                                     height={80}
