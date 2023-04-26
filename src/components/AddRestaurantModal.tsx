@@ -47,9 +47,9 @@ const AddRestaurantModal: React.FC<AddRestaurantModalProps> = ({ onAdd }) => {
                             zip: formData.get("zip") as string,
                             lat: parseFloat(formData.get("lat") as string),
                             lng: parseFloat(formData.get("lng") as string),
-                            phone: formData.get("phone") as string,
-                            email: formData.get("email") as string,
-                            website: formData.get("website") as string,
+                            phone: formData.get("phone") as string || undefined,
+                            email: formData.get("email") as string || undefined,
+                            website: formData.get("website") as string || undefined,
                         } satisfies PartialRestaurant;
                         onAdd(data);
                     }}

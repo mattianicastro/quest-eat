@@ -21,7 +21,7 @@ export const Restaurants: NextPage = () => {
         void addRestaurantMutation
             .mutateAsync(restaurant)
             .then((res) => {
-                void router.push(`/restaurants/${res.id}`);
+                void router.push(`/restaurant/${res.id}`);
             })
             .catch(() => {
                 alert(addRestaurantMutation.failureReason);
