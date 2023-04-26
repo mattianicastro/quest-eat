@@ -7,28 +7,32 @@ import RestaurantCard from "~/components/RestaurantCard";
 import { AddRestaurantModal } from "~/components/AddRestaurantModal";
 import type { PartialRestaurant } from "~/components/AddRestaurantModal";
 
-
 export const Restaurants: NextPage = () => {
     const restaurantsQuery = api.restaurants.getAll.useQuery();
-    const addRestaurantMutation = api.restaurants.createRestaurant.useMutation();
+    const addRestaurantMutation =
+        api.restaurants.createRestaurant.useMutation();
     const router = useRouter();
 
     if (restaurantsQuery.isLoading) {
         return <Loading />;
     }
-    
-    function handleAddRestaurant(restaurant: PartialRestaurant) {
-        void addRestaurantMutation.mutateAsync(restaurant).then((res)=>{
-            void router.push(`/restaurants/${res.id}`)
-        });
 
+    function handleAddRestaurant(restaurant: PartialRestaurant) {
+        void addRestaurantMutation
+            .mutateAsync(restaurant)
+            .then((res) => {
+                void router.push(`/restaurants/${res.id}`);
+            })
+            .catch(() => {
+                alert(addRestaurantMutation.failureReason);
+            });
     }
 
     return (
         <div className="flex flex-col p-4">
             <div className="mb-5 flex items-center justify-between">
                 <h1 className="text-3xl font-bold">Ristoranti</h1>
-            <AddRestaurantModal onAdd={handleAddRestaurant}/>
+                <AddRestaurantModal onAdd={handleAddRestaurant} />
             </div>
             <div className="flex flex-row flex-wrap justify-center gap-6">
                 {restaurantsQuery.data ? (

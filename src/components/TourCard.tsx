@@ -26,7 +26,7 @@ const TourCard: React.FC<TourCardProps> = ({ tour }) => {
                 <CardTitle>{tour.name}</CardTitle>
                 <CardDescription>
                     Creato da{" "}
-                    <Link href={`/users/${tour.createdBy.id}`}>
+                    <Link href={`/user/${tour.createdBy.id}`}>
                         {tour.createdBy.name}
                     </Link>
                 </CardDescription>

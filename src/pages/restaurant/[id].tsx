@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Rating } from "react-daisyui";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { Loading } from "~/components/Loading";
 
 const Map = dynamic(() => import("~/components/Map"), { ssr: false });
 
@@ -18,7 +19,6 @@ const RestaurantDetails: NextPage = () => {
     });
     const setReviewMutation = api.restaurants.setReview.useMutation();
     const session = useSession();
-
     const [rating, setRating] = useState<number>(0);
 
     useEffect(() => {
@@ -26,6 +26,8 @@ const RestaurantDetails: NextPage = () => {
             setRating(reviewsQuery.data._avg.rating);
     }, [reviewsQuery.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    if (restaurantsQuery.isLoading) return <Loading />;
+    if (reviewsQuery.isLoading) return <Loading />;
     if (!restaurantsQuery.data) return <p>No data</p>;
     if (!reviewsQuery.data) return <p>No data</p>;
 

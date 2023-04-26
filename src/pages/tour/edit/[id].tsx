@@ -68,9 +68,7 @@ export const Tour: NextPage = () => {
                         </h1>
                         <p className="font-light">
                             Creato da{" "}
-                            <Link
-                                href={`/users/${tourQuery.data.createdBy.id}`}
-                            >
+                            <Link href={`/user/${tourQuery.data.createdBy.id}`}>
                                 {tourQuery.data.createdBy.name}
                             </Link>
                         </p>

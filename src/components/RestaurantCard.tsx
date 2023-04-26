@@ -33,7 +33,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant }) => {
                         <Phone /> {restaurant.phone}
                     </div>
                     Aggiunto da{" "}
-                    <Link href={`/users/${restaurant.createdBy.id}`}>
+                    <Link href={`/user/${restaurant.createdBy.id}`}>
                         {restaurant.createdBy.name} il{" "}
                         {new Date(restaurant.createdAt).toLocaleDateString()}
                     </Link>
