@@ -16,6 +16,7 @@ import {
 } from "~/components/ui/popover";
 import type { Restaurant } from "@prisma/client";
 import { api } from "~/utils/api";
+import { CommandLoading } from "cmdk";
 
 interface CommandPopoverProps {
     onCommand: (command: Restaurant | undefined) => void;
@@ -77,9 +78,11 @@ const CommandPopover: React.FC<CommandPopoverProps> = ({ onCommand }) => {
                                             const r =
                                                 restaurantsQuery.data.find(
                                                     (restaurant) =>
-                                                        restaurant.name ===
+                                                        restaurant.name.toLowerCase() ===
                                                         value
                                                 );
+                                            console.log(restaurantsQuery.data)
+                                            console.log(r)
                                             setSelectedRestaurant(r);
                                             onCommand(r);
                                         }}
