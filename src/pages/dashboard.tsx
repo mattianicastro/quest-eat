@@ -22,7 +22,7 @@ const Dashboard: NextPage = () => {
 
     return (
         <>
-            <main className="flex min-h-screen flex-col items-center gap-y-5 bg-primary-foreground">
+            <main className="flex min-h-screen flex-col items-center gap-y-5">
                 <h1 className="scroll-m-20 p-5 font-sans text-4xl font-bold tracking-tight text-primary md:place-self-start lg:text-5xl">
                     Dashboard
                 </h1>

@@ -31,7 +31,7 @@ export const Restaurants: NextPage = () => {
     return (
         <div className="flex flex-col p-4">
             <div className="mb-5 flex items-center justify-between">
-                <h1 className="text-3xl font-bold">Ristoranti</h1>
+                <h1 className="text-3xl font-bold text-red-500">Ristoranti</h1>
                 <AddRestaurantModal onAdd={handleAddRestaurant} />
             </div>
             <div className="flex flex-row flex-wrap justify-center gap-6">

@@ -39,10 +39,10 @@ export const Tours: NextPage = () => {
     return (
         <div className="flex flex-col p-4">
             <div className="mb-5 flex items-center justify-between">
-                <h1 className="text-3xl font-bold">Tours</h1>
+                <h1 className="text-3xl font-bold text-red-500">Tours</h1>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="outline">Crea</Button>
+                        <Button className="bg-red-600 text-white">Crea</Button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>

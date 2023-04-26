@@ -31,7 +31,7 @@ const AddRestaurantModal: React.FC<AddRestaurantModalProps> = ({ onAdd }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Aggiungi nuovo</Button>
+                <Button className="bg-red-600 text-white">Aggiungi nuovo</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <form

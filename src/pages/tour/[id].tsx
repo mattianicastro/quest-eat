@@ -32,7 +32,7 @@ export const Tour: NextPage = () => {
             <div className="p-4">
                 <div className="mb-5 flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold">
+                        <h1 className="text-3xl font-bold text-red-500">
                             {tourQuery.data.name}
                         </h1>
                         <p className="font-light">

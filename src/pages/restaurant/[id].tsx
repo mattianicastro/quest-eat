@@ -42,8 +42,8 @@ const RestaurantDetails: NextPage = () => {
 
     return (
         <>
-            <main className="flex min-h-screen flex-col items-center gap-y-5 bg-primary-foreground p-5 md:items-start">
-                <h1 className="scroll-m-20 font-sans text-4xl font-bold tracking-tight text-primary lg:text-5xl">
+            <main className="flex min-h-screen flex-col items-center gap-y-5 p-5 md:items-start">
+                <h1 className="scroll-m-20 font-sans text-4xl font-bold tracking-tight text-primary text-red-500 lg:text-5xl">
                     {restaurantsQuery.data.name}
                 </h1>
                 {reviewsQuery.data._avg.rating ? (

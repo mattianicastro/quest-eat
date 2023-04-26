@@ -18,16 +18,16 @@ const Layout: React.FC<Props> = ({ children }) => {
     const { data: sessionData } = useSession();
     return (
         <>
-            <div className="flex h-14 items-center justify-between border-b border-b-slate-200 bg-yellow-200 px-2 py-4">
+            <div className="flex h-14 items-center justify-between border-b border-b-slate-200 bg-blue-500 text-white px-2 py-4">
                 <div className="flex gap-3 md:gap-10">
                     <Link className="" href="/">
                         <Button
-                            className="hidden items-center justify-center md:flex md:text-2xl"
+                            className="hidden items-center justify-center md:flex md:text-2xl text-white"
                             variant={"link"}
                         >
                             <Image
                                 className="mr-2"
-                                src={"/content-crop-logo.png"}
+                                src={"/content-crop-logo-white.png"}
                                 alt={"Logo"}
                                 width={50}
                                 height={50}
@@ -58,9 +58,6 @@ const Layout: React.FC<Props> = ({ children }) => {
                                 <DropdownMenuItem asChild>
                                     <Link href="/restaurants">Ristoranti</Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem asChild>
-                                    <Link href="/near-me">Vicino a me</Link>
-                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
@@ -74,11 +71,6 @@ const Layout: React.FC<Props> = ({ children }) => {
                         <Button className="" variant={"ghost"}>
                             <Link className="" href="/restaurants">
                                 Ristoranti
-                            </Link>
-                        </Button>
-                        <Button className="" variant={"ghost"}>
-                            <Link className="" href="/near-me">
-                                Vicino a me
                             </Link>
                         </Button>
                     </div>
@@ -98,7 +90,9 @@ const Layout: React.FC<Props> = ({ children }) => {
                     )}
                 </div>
             </div>
+            <div className="min-h-[calc(100vh-3.5rem)] h-full w-screen bg-yellow-300">
             {children}
+            </div>
         </>
     );
 };

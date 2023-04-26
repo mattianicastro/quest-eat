@@ -115,6 +115,7 @@ export const Tour: NextPage = () => {
                 </div>
 
                 <Input
+                    className="border-black"
                     value={tourDescription}
                     onChange={(e) => setTourDescription(e.target.value)}
                 />
