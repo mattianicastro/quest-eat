@@ -43,32 +43,7 @@ const Dashboard: NextPage = () => {
                             </Link>
                         </CardFooter>
                     </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Tour</CardTitle>
-                            <CardDescription>
-                                Gestisci i tuoi tour o creane uno nuovo
-                            </CardDescription>
-                        </CardHeader>
-                        <CardFooter>
-                            <Button>
-                                <Link href={"/dashboard/tours"}>Vai</Link>
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Tour</CardTitle>
-                            <CardDescription>
-                                Gestisci i tuoi tour o creane uno nuovo
-                            </CardDescription>
-                        </CardHeader>
-                        <CardFooter>
-                            <Button>
-                                <Link href={"/dashboard/tours"}>Vai</Link>
-                            </Button>
-                        </CardFooter>
-                    </Card>
+               
                 </div>
             </main>
         </>
