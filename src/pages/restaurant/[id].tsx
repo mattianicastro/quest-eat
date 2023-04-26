@@ -46,7 +46,6 @@ const RestaurantDetails: NextPage = () => {
                 <h1 className="scroll-m-20 font-sans text-4xl font-bold tracking-tight text-primary text-red-500 lg:text-5xl">
                     {restaurantsQuery.data.name}
                 </h1>
-                {reviewsQuery.data._avg.rating ? (
                     <Rating value={rating} onChange={submitReview}>
                         <Rating.Item
                             name="rating-1"
@@ -74,7 +73,7 @@ const RestaurantDetails: NextPage = () => {
                             className="mask mask-star bg-orange-400"
                         />
                     </Rating>
-                ) : null}
+                
 
                 <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
                     Dove
